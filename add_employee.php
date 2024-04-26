@@ -1,10 +1,23 @@
-<?php 
-session_start();
-if(!isset($_SESSION['loggedin'])|| $_SESSION['loggedin']!=true){
-    header("location: login.php");
-    exit;
+<?php
+require 'dbconnection.php';
+if($_SERVER['REQUEST_METHOD']=='POST')
+{
+    $fname=$_POST['fname'];
+    $lname=$_POST['lname'];
+    $email=$_POST['email'];
+    $phone=$_POST['phone'];
+    $location=$_POST['location'];
+    $dept=$_POST['dept'];
+    $query_insert="INSERT INTO `employee` (`First`, `last`, `email`, `phone`, `location`, `dept`) 
+    VALUES ('$fname', '$lname', '$email', '$phone', '$location', '$dept')";
+    $result_insert=mysqli_query($conn,$query_insert);
+    if($result_insert){
+        header("location:dashboard.php");
+    }
+    else {
+        echo "Sorry, data is not inserted ";
+    }
 }
-include "decoration/_nav.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,61 +29,39 @@ include "decoration/_nav.php";
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <title>Dashboard</title>
+    <title>Add</title>
   </head>
   <body>
-   
-    <div class="container my-5">
-    <h2 >Employee Data</h2>
-    <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Location</th>
-      <th scope="col">Department</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-   
-    <?php
-    require "dbconnection.php";
-    // Dispaly Data
-    $query_select="SELECT * FROM `employee`";
-    $result_select=mysqli_query($conn,$query_select);
-    while($row=mysqli_fetch_assoc($result_select)){
-        echo" <tr>
-        <th scope='row'>".$row['id']."</th>
-      <td>".$row['First']."</td>
-      <td>".$row['last']."</td>
-      <td>".$row['email']."</td>
-      <td>".$row['phone']."</td>
-      <td>".$row['location']."</td>
-      <td>".$row['dept']."</td>
-      <td>
-      
-                <a href='#' class='btn btn-success'>Edit</a>
-                
-                 <a href='#' class='btn btn-danger'>Delete</a></td>
-      </tr>
-        ";
-    }
-    
-    ?>
-
-      
-   
-  </tbody>
-</table>
-
-<a href='add_employee.php' class='btn btn-primary'>Add Employee</a>
+    <div class="container my-4">
+        <h2>Add Employee</h2>
+    <form action='add_employee.php' method='post'>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+    <label for="fname">First</label>
+    <input type="text" class="form-control" id="fname" name="fname">
+  </div>
+  <div class="form-group">
+    <label for="lname">Last</label>
+    <input type="text" class="form-control" id="lname" name="lname">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="number" class="form-control" id="phone" name="phone">
+  </div>
+  <div class="form-group">
+    <label for="location">Location</label>
+    <input type="text" class="form-control" id="location" name="location">
+  </div>
+  <div class="form-group">
+    <label for="dept">Department</label>
+    <input type="text" class="form-control" id="dept" name="dept">
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
     </div>
-   
-    
 
     <!-- Optional JavaScript; choose one of the two! -->
 
