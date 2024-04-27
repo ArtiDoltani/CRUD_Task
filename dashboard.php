@@ -19,8 +19,7 @@ include "decoration/_nav.php";
     <title>Dashboard</title>
   </head>
   <body>
-   
-    <div class="container my-5">
+     <div class="container my-5">
     <h2 >Employee Data</h2>
     <table class="table">
   <thead class="thead-dark">
@@ -55,7 +54,7 @@ include "decoration/_nav.php";
       
                 <a href='Edit.php?id=".$row['id']."' class='btn btn-success'>Edit</a>
                 
-                 <a href='#' class='btn btn-danger'>Delete</a></td>
+                 <a href='delete.php?id=".$row['id']."' class='btn btn-danger'>Delete</a></td>
       </tr>
         ";
     }
