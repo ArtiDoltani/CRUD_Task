@@ -37,19 +37,19 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     <form action='add_employee.php' method='post'>
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="email" name="email" Required aria-describedby="emailHelp">
   </div>
   <div class="form-group">
     <label for="fname">First</label>
-    <input type="text" class="form-control" id="fname" name="fname">
+    <input type="text" class="form-control" id="fname" Required name="fname" >
   </div>
   <div class="form-group">
     <label for="lname">Last</label>
-    <input type="text" class="form-control" id="lname" name="lname">
+    <input type="text" class="form-control" id="lname"  Required  name="lname">
   </div>
   <div class="form-group">
     <label for="phone">Phone</label>
-    <input type="number" class="form-control" id="phone" name="phone">
+    <input type="number" class="form-control" id="phone"  Required  name="phone">
   </div>
   <div class="form-group">
     <label for="location">Location</label>
@@ -57,7 +57,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
   </div>
   <div class="form-group">
     <label for="dept">Department</label>
-    <input type="text" class="form-control" id="dept" name="dept">
+    <input type="text" class="form-control" id="dept" required name="dept">
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>

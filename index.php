@@ -1,3 +1,33 @@
+<?php
+require 'dbconnection.php';
+$showalert=false;
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $email=$_POST['Email'];
+    $password=$_POST['Password'];
+    $user_exist="SELECT * FROM `admin` where `Email` = '$email'";
+    $result_exits=mysqli_query($conn, $user_exist);
+    $num_row= mysqli_num_rows($result_exits);
+    if($num_row>0){
+        $showalert=true;
+    }
+    else{
+        $query_insert="INSERT INTO `admin` (`Email`, `Password`) VALUES ('$email', '$password')";
+        $result_insert=mysqli_query($conn,$query_insert);
+        if($result_insert){
+          header("location:login.php");
+         
+ //   echo" account has been created successfully";
+                
+            
+        }
+        else{
+            echo"<script>alert('error')</script>";
+        }
+    }
+    }
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,14 +38,26 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <title>Sign up!</title>
+    <title>Sign up</title>
   </head>
   <body>
 
   <div class="container my-4" >
+<?php
+if($showalert){
+
+  echo " <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+  <strong>Invalid!</strong> This user already exists.
+  <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+  </button>
+  </div>";
+}
+
+?>
         <h2>Sign Up</h2>
 
-        <form action="signup_submit.php" method="post">
+        <form action="index.php" method="post">
         <label for="email">Email</label>
     <input type="text" class="form-control" id="email" name="Email" aria-describedby="emailHelp">
 

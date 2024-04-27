@@ -53,7 +53,7 @@ include "decoration/_nav.php";
       <td>".$row['dept']."</td>
       <td>
       
-                <a href='#' class='btn btn-success'>Edit</a>
+                <a href='Edit.php?id=".$row['id']."' class='btn btn-success'>Edit</a>
                 
                  <a href='#' class='btn btn-danger'>Delete</a></td>
       </tr>
