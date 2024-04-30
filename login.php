@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
   </head>
   <body>
 
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -47,7 +47,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
            
     </ul>
   </div>
-</nav> -->
+</nav>
 
 
   <div class="container my-4" >
@@ -55,14 +55,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
         <form action="login.php" method="post">
         <label for="email">Email</label>
-    <input type="text" class="form-control" id="email" name="Email" aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="email" name="Email" aria-describedby="emailHelp">
 
-  <div class="form-group ">
+  <div class="form-group">
     <label for="password" name="password">Password</label>
     <input type="password" class="form-control" id="password" name="Password">
   </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="password_reset.php" class="float-right">Forgot Password?</a>
+  </div>
                
-            <button type="submit" class="btn btn-primary">Login</button>
           </form>
 
 

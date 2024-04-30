@@ -24,7 +24,7 @@ include "decoration/_nav.php";
     <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">ID</th>
       <th scope="col">First</th>
       <th scope="col">Last</th>
       <th scope="col">Email</th>
@@ -60,17 +60,11 @@ include "decoration/_nav.php";
     }
     
     ?>
-
-      
-   
   </tbody>
 </table>
 
 <a href='add_employee.php' class='btn btn-primary'>Add Employee</a>
     </div>
-   
-    
-
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

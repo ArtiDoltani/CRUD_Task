@@ -41,8 +41,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <title>Sign up</title>
   </head>
   <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  <div class="container my-4" >
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+    </li>
+         
+  </ul>
+</div>
+</nav>
 <?php
 if($showalert){
 
@@ -55,21 +64,21 @@ if($showalert){
 }
 
 ?>
+<div class="container my-4">
         <h2>Sign Up</h2>
 
         <form action="index.php" method="post">
+        <div class="form-group col-md-6">
         <label for="email">Email</label>
-    <input type="text" class="form-control" id="email" name="Email" aria-describedby="emailHelp">
-
-  <div class="form-group ">
+    <input type="email" class="form-control" id="email" name="Email" aria-describedby="emailHelp">
+    </div>
+  <div class="form-group col-md-6">
     <label for="password" name="password">Password</label>
     <input type="password" class="form-control" id="password" name="Password">
   </div>
                
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button type="submit " class="btn btn-primary ">Sign Up</button>
           </form>
-
-
       </div>
 
    
