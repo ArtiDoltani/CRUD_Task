@@ -31,6 +31,8 @@ include "decoration/_nav.php";
       <th scope="col">Phone</th>
       <th scope="col">Location</th>
       <th scope="col">Department</th>
+      <th scope="col">Signin Time</th>
+      <th scope="col">Signout Time</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -41,7 +43,9 @@ include "decoration/_nav.php";
     // Dispaly Data
     $query_select="SELECT * FROM `employee`";
     $result_select=mysqli_query($conn,$query_select);
+    $lt=strtotime('9:00:00');
     while($row=mysqli_fetch_assoc($result_select)){
+    
         echo" <tr>
         <th scope='row'>".$row['id']."</th>
       <td>".$row['First']."</td>
@@ -49,8 +53,28 @@ include "decoration/_nav.php";
       <td>".$row['email']."</td>
       <td>".$row['phone']."</td>
       <td>".$row['location']."</td>
-      <td>".$row['dept']."</td>
-      <td>
+      <td>".$row['dept']."</td>";
+       // This is Sign In Time
+      if(strtotime($row['signin_time'])< $lt){
+        echo"<td>Early ".$row['signin_time']."</td>";
+      }
+      elseif(strtotime($row['signin_time'])> $lt){
+        echo"<td>Late </td>";
+      }
+      else{
+        echo"<td>on Time </td>";
+      }
+      // This is Sign out Time
+      if($row['signout_time'] < "18:00"){
+        echo"<td>Early ".$row['signout_time']." </td>";
+      }
+      elseif($row['signout_time']> "18:00"){
+        echo"<td>Late 
+        ".$row['signout_time']."
+        
+        </td>";
+      }
+     echo" <td>
       
                 <a href='Edit.php?id=".$row['id']."' class='btn btn-success'>Edit</a>
                 
