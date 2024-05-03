@@ -33,6 +33,7 @@ include "decoration/_nav.php";
       <th scope="col">Department</th>
       <th scope="col">Signin Time</th>
       <th scope="col">Signout Time</th>
+      <th scope="col">Total Time</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -45,7 +46,15 @@ include "decoration/_nav.php";
     $result_select=mysqli_query($conn,$query_select);
     $lt=strtotime('9:00:00');
     while($row=mysqli_fetch_assoc($result_select)){
-    
+
+      //this code will retrun floating numbers
+  //  $start_time=strtotime($row['signin_time']);
+  //   $end_time=strtotime($row['signout_time']);
+  //   $total_time=abs($start_time - $end_time)/3600;
+
+        $first  = new DateTime( $row['signin_time'] );
+        $second = new DateTime( $row['signout_time'] );
+        $diff = $first->diff( $second );
         echo" <tr>
         <th scope='row'>".$row['id']."</th>
       <td>".$row['First']."</td>
@@ -66,19 +75,22 @@ include "decoration/_nav.php";
       }
       // This is Sign out Time
       if($row['signout_time'] < "18:00"){
-        echo"<td>Early ".$row['signout_time']." </td>";
+        echo"<td>Early
+        
+         </td>";
       }
       elseif($row['signout_time']> "18:00"){
         echo"<td>Late 
-        ".$row['signout_time']."
         
         </td>";
       }
-     echo" <td>
+     echo" 
+     <td>". $diff->format( '%H:%I:%S' )."</td>
+     <td>
       
-                <a href='Edit.php?id=".$row['id']."' class='btn btn-success'>Edit</a>
+                <a href='Edit.php?id=".$row['id']."' class='btn btn-success'>Edit</a> </td>
                 
-                 <a href='delete.php?id=".$row['id']."' class='btn btn-danger'>Delete</a></td>
+                <td>      <a href='delete.php?id=".$row['id']."' class='btn btn-danger'>Delete</a></td>
       </tr>
         ";
     }
