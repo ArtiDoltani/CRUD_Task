@@ -1,6 +1,6 @@
 <?php
 require 'dbconnection.php';
-
+include "decoration/_nav.php";
 // This is used to get the values 
 if(isset($_GET['id'])){
     $id=$_GET['id'];
@@ -18,12 +18,13 @@ if(isset($_POST['update'])){
     $phone=$_POST['phone'];
     $location=$_POST['location'];
     $dept=$_POST['dept'];
+    $salary=$_POST['salary'];
     $query_update="UPDATE `employee` SET `dept` = '$dept' ,`First`= '$fname', `last`='$lname',
-     `email`= '$email', `phone`= '$phone', `location`='$location' WHERE `employee`.`id` = '$id'";
+     `email`= '$email', `phone`= '$phone', `location`='$location',`salary`='$salary' WHERE `employee`.`id` = '$id'";
     $result_update=mysqli_query($conn, $query_update);
     if($result_update){
-        header("location:dashboard.php");
-        //echo"<script>alert('updated')</script>";
+       echo"<script>alert('updated Successfully');
+       window.location.href='dashboard.php';</script>";
     }
     else{
         echo"<script>alert('Sorry: not updated')</script>";
@@ -69,6 +70,10 @@ if(isset($_POST['update'])){
   <div class="form-group">
     <label for="dept">Department</label>
     <input type="text" class="form-control" id="dept"  value="<?php echo $row['dept']?>" name="dept">
+  </div>
+  <div class="form-group">
+    <label for="salary">Salary</label>
+    <input type="text" class="form-control" id="salary" name="salary" value="<?php echo $row['salary']?>">
   </div>
   <button type="submit" class="btn btn-primary" name="update">Update</button>
 </form>

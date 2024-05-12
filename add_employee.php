@@ -7,16 +7,13 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     $email=$_POST['email'];
     $phone=$_POST['phone'];
     $location=$_POST['location'];
-    $dept=$_POST['dept'];
-    $signin_time=$_POST['signin_time'];
-    date_default_timezone_set('Asia/karachi');
-    $signout_time=date('Y-m-d H:i:s a');
+    $dept=$_POST['dept']; 
+    $salary=$_POST['salary'];
     $query_insert="INSERT INTO `employee` (`First`, `last`, `email`, `phone`, `location`,
-     `dept`,`signin_time`,`signout_time`) 
-    VALUES ('$fname', '$lname', '$email', '$phone', '$location', '$dept','$signin_time','$signout_time')";
+     `dept`,`salary`) 
+    VALUES ('$fname', '$lname', '$email', '$phone', '$location', '$dept','$salary')";
     $result_insert=mysqli_query($conn,$query_insert);
     if($result_insert){
-        // header("location:dashboard.php");
         echo"
             <script>
             
@@ -71,13 +68,9 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     <input type="text" class="form-control" id="dept" required name="dept">
   </div>
   <div class="form-group">
-    <label for="dept">Signin Time</label>
-    <input type="time" class="form-control" id="signin_time" required name="signin_time">
+    <label for="salary">Salary</label>
+    <input type="text" class="form-control" id="salary"  Required  name="salary">
   </div>
-  <!-- <div class="form-group">
-    <label for="dept">Signout Time</label>
-    <input type="time" class="form-control" id="signout_time" required name="signout_time">
-  </div> -->
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
     </div>

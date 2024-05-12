@@ -1,12 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
-  header("location: login.php");
-  exit;
-}
-include "decoration/_nav.php";
-
-?>
 <!doctype html>
 <html lang="en">
 
@@ -18,25 +9,20 @@ include "decoration/_nav.php";
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-  <title>Dashboard</title>
+  <title>Attendance list</title>
 </head>
 
 <body>
   <div class="container my-5">
-    <h2>Employee Data</h2>
+    <h2>Attendance List</h2>
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Email</th>
-          <th scope="col">Phone</th>
-          <th scope="col">Location</th>
-          <th scope="col">Department</th>
-          <th scope="col">Salary</th>
-          <th scope="col">Salary after deduction</th>
-      <!-- <th scope="col">Total Time</th> -->
+          <th scope="col">Empolyee ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Signin Time</th>
+          <th scope="col">Signout Time</th>
+          <th scope="col">Date</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -45,48 +31,30 @@ include "decoration/_nav.php";
         <?php
         require "dbconnection.php";
         // Dispaly Data
-        $query_select = "SELECT * FROM `employee`";
+        // $query_select="SELECT * FROM `employee_attendance`";
+        $query_select = "SELECT a.*,concat(e.first,' ',e.last) as name, e.id
+         FROM `employee_attendance` a inner join employee e on a.employee_id = e.id ";
         $result_select = mysqli_query($conn, $query_select);
         $lt = strtotime('9:00:00');
         while ($row = mysqli_fetch_assoc($result_select)) {
-          $salary=$row['salary'];
-          $days_in_month = date('t');
-          $month= date('m');
-          $salary_perday=$row['salary']/$days_in_month;
-          $count_absent= "SELECT COUNT(*) as total_absent_days FROM `employee_attendance` WHERE
-          `employee_id`='$row[id]' and is_absent=1";
-          $count_absent_result=mysqli_query($conn,$count_absent);
+
           //this code will retrun floating numbers
           //  $start_time=strtotime($row['signin_time']);
           //   $end_time=strtotime($row['signout_time']);
           //   $total_time=abs($start_time - $end_time)/3600;
-          
+
           // $first  = new DateTime( $row['signin_time'] );
           // $second = new DateTime( $row['signout_time'] );
           // $diff = $first->diff( $second );
           echo " <tr>
-          <th scope='row'>" . $row['id'] . "</th>
-          <td>" . $row['First'] . "</td>
-          <td>" . $row['last'] . "</td>
-          <td>" . $row['email'] . "</td>
-          <td>" . $row['phone'] . "</td>
-          <td>" . $row['location'] . "</td>
-          <td>" . $row['dept'] . "</td>
-          <td>" . $row['salary'] . "</td>";
-          if($count_absent_result->num_rows>0){
-            $count_absent_row=mysqli_fetch_assoc($count_absent_result);
-          $totalAbsentDays = $count_absent_row["total_absent_days"];
-          $salaryDeduction = $totalAbsentDays * $salary_perday;
-          $current_salary=$row['salary'] - $salaryDeduction;
-          echo" <td> $current_salary</td>";
-      }
-      else{
-        echo "<td>No absent days found</td>";
-      }
-      // <td>" . $count_absent_result. "</td>";
-     
-      
-      
+        <th scope='row'>" . $row['employee_id'] . "</th>        
+        <td>" . htmlentities($row['name']) . "</td>
+        <td>" . $row['login_time'] . "</td>
+        <td>" . $row['logout_time'] . "</td>
+        <td>" . $row['date'] . "</td>";
+          //<td>" . $row['email'] . "</td>
+
+
           // This is Sign In Time
           //   if(strtotime($row['signin_time'])< $lt){
           //     echo"<td>Early ".$row['signin_time']."</td>";
@@ -110,20 +78,18 @@ include "decoration/_nav.php";
           //   }
           //  echo" 
           //  <td>". $diff->format( '%H:%I:%S' )."</td>
-          echo "  <td>
-      
-                <a href='Edit.php?id=" . $row['id'] . "' class='btn btn-success'>Edit</a> </td>
-                
-                <td>      <a href='delete.php?id=" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>
-      </tr>
-        ";
+          echo "         
+          <td>      <a href='emp_delete.php?id=" . $row['id'] . "' class='btn btn-danger'>Delete</a></td>
+          </tr>
+          ";
         }
+        //<a href='Edit.php?id=" . $row['employee_id'] . "' class='btn btn-success'>Edit</a> </td>
 
         ?>
       </tbody>
     </table>
 
-    <a href='add_employee.php' class='btn btn-primary'>Add Employee</a>
+    <!-- <a href='add_employee.php' class='btn btn-primary'>Add Employee</a> -->
   </div>
   <!-- Optional JavaScript; choose one of the two! -->
 
